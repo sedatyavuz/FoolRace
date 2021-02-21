@@ -4,10 +4,27 @@ using UnityEngine;
 
 public class HorizontalObstacle : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision collision)
+    [SerializeField] private Vector3 StartPos;
+    [SerializeField] private Vector3 EndPos;
+    [SerializeField] private float Speed;
+
+    private Vector3 nextPos;
+
+    private void Start()
     {
-        if(collision.gameObject.CompareTag("Player"))
+        nextPos = EndPos;
+    }
+
+    private void Update()
+    {
+        if (transform.localPosition == StartPos)
         {
+            nextPos = EndPos;
         }
+        if (transform.localPosition == EndPos)
+        {
+            nextPos = StartPos;
+        }
+        transform.localPosition = Vector3.MoveTowards(transform.localPosition, nextPos, Speed * Time.deltaTime);
     }
 }
