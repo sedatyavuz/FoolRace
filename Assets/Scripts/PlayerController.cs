@@ -29,53 +29,56 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.touchCount > 0)
         {
-            Touch touch = Input.GetTouch(0);
-
-            animator.SetBool("run", true);
-
-            switch (touch.phase)
+            if (GameManager.Instance.gameState == GameManager.GameState.Play)
             {
-                case TouchPhase.Began:
-                    startPos = touch.position;
-                    break;
+                Touch touch = Input.GetTouch(0);
 
-                case TouchPhase.Moved:
-                    isSwiping = true;
-                    direction = touch.position - startPos;
-                    direction = Vector3.Normalize(direction);
-                    break;
+                animator.SetBool("run", true);
 
-                case TouchPhase.Ended:
-                    isSwiping = false;
-                    direction = Vector2.zero;
-                    break;
-            }
-
-            swipeDelta = Vector2.zero;
-
-            if (isSwiping)
-            {
-                if (Input.touches.Length > 0)
+                switch (touch.phase)
                 {
-                    swipeDelta = touch.position - startPos;
+                    case TouchPhase.Began:
+                        startPos = touch.position;
+                        break;
+
+                    case TouchPhase.Moved:
+                        isSwiping = true;
+                        direction = touch.position - startPos;
+                        direction = Vector3.Normalize(direction);
+                        break;
+
+                    case TouchPhase.Ended:
+                        isSwiping = false;
+                        direction = Vector2.zero;
+                        break;
                 }
+
+                swipeDelta = Vector2.zero;
+
+                if (isSwiping)
+                {
+                    if (Input.touches.Length > 0)
+                    {
+                        swipeDelta = touch.position - startPos;
+                    }
+                }
+
+                if (swipeDelta.magnitude > 5)
+                {
+                    moveDirection.x = direction.x;
+                    moveDirection.z = direction.y;
+                    moveDirection.y = 0;
+
+                    newDir = Vector3.RotateTowards(transform.forward, moveDirection, 0.3f, 0);
+
+                    transform.rotation = Quaternion.LookRotation(newDir);
+
+                    transform.Translate(moveDirection * Time.deltaTime * movementSpeed, Space.World);
+                }
+
+                VeloMoveDirection = moveDirection * Time.deltaTime * speed;
+                rb.velocity = new Vector3(VeloMoveDirection.x, rb.velocity.y, VeloMoveDirection.z);
             }
-
-            if (swipeDelta.magnitude > 5)
-            {
-                moveDirection.x = direction.x;
-                moveDirection.z = direction.y;
-                moveDirection.y = 0;
-
-                newDir = Vector3.RotateTowards(transform.forward, moveDirection, 0.3f, 0);
-
-                transform.rotation = Quaternion.LookRotation(newDir);
-
-                transform.Translate(moveDirection * Time.deltaTime * movementSpeed, Space.World);
-            }
-
-            VeloMoveDirection = moveDirection * Time.deltaTime * speed;
-            rb.velocity = new Vector3(VeloMoveDirection.x, rb.velocity.y, VeloMoveDirection.z);
         }
         else
         {
