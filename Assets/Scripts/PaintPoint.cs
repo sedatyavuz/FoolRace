@@ -6,13 +6,13 @@ public class PaintPoint : MonoBehaviour
 {
     [SerializeField] private Vector3 PaintPos;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if(other.CompareTag("Player"))
         {
             GameManager.Instance.gameState = GameManager.GameState.Paint;
-            collision.gameObject.transform.position = PaintPos;
-            collision.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward);
+            other.transform.position = new Vector3(PaintPos.x, other.transform.position.y, PaintPos.z);
+            other.transform.rotation = Quaternion.LookRotation(Vector3.forward);
         }
     }
 }
