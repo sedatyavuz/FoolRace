@@ -25,13 +25,23 @@ public class CameraFollow : MonoBehaviour
     {
         if (GameManager.Instance.gameState == GameManager.GameState.Play)
         {
-            Vector3 nextPos = target.position + offset;
-            Vector3 smootPos = Vector3.Lerp(transform.position, nextPos, smoothSpeed);
-            transform.position = smootPos;
+            FollowPlayer();
+            return;
+        }
+        if(GameManager.Instance.gameState==GameManager.GameState.Paint)
+        {
+            ChangeCam();
         }
     }
 
-    void ChangeCam()
+    private void FollowPlayer()
+    {
+        Vector3 nextPos = target.position + offset;
+        Vector3 smootPos = Vector3.Lerp(transform.position, nextPos, smoothSpeed);
+        transform.position = smootPos;
+    }
+
+    private void ChangeCam()
     {
         transform.position = Vector3.Lerp(transform.position, PaintCamPos.position, Time.deltaTime * ChangeCamSpeed);
         transform.eulerAngles = new Vector3(
