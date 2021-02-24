@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    public enum GameState { Menu = 0, Play = 1, Paint = 2 }
+    public enum GameState { Menu = 0, Play = 1, Paint = 2, CamChange = 3 }
     public GameState gameState;
 
     private void Awake()

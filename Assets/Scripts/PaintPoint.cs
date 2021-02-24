@@ -10,7 +10,7 @@ public class PaintPoint : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            GameManager.Instance.gameState = GameManager.GameState.Paint;
+            GameManager.Instance.gameState = GameManager.GameState.CamChange;
             other.transform.position = new Vector3(PaintPos.x, other.transform.position.y, PaintPos.z);
             other.transform.rotation = Quaternion.LookRotation(Vector3.forward);
         }

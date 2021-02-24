@@ -28,9 +28,12 @@ public class CameraFollow : MonoBehaviour
             FollowPlayer();
             return;
         }
-        if(GameManager.Instance.gameState==GameManager.GameState.Paint)
+        if (GameManager.Instance.gameState == GameManager.GameState.CamChange)
         {
             ChangeCam();
+
+            if (Mathf.Abs(transform.position.z - target.position.z) <= 0.2f)
+                GameManager.Instance.gameState = GameManager.GameState.Paint;
         }
     }
 
