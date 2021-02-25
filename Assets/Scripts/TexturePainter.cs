@@ -11,18 +11,8 @@ public class TexturePainter : MonoBehaviour
     [SerializeField] private Color brushColor;
     [SerializeField] private RenderTexture wallTexture;
 
-    Texture2D myTexture2D;
-
-    private void Start()
-    {
-        myTexture2D = new Texture2D(1024, 1024, TextureFormat.RGB24, false);
-    }
     void Update()
     {
-        //RenderTexture.active = wallTexture;
-        //myTexture2D.ReadPixels(new Rect(0, 0, wallTexture.width, wallTexture.height), 0, 0);
-        //myTexture2D.Apply();
-
         if (GameManager.Instance.gameState != GameManager.GameState.Paint)
             return;
 
@@ -32,11 +22,6 @@ public class TexturePainter : MonoBehaviour
         }
 
         UpdateBrush();
-    }
-
-    private void PaintProgressBar()
-    {
-
     }
 
     private void SetBrush()
@@ -77,6 +62,7 @@ public class TexturePainter : MonoBehaviour
             MeshCollider meshCollider = hit.collider as MeshCollider;
             if (meshCollider == null || meshCollider.sharedMesh == null)
                 return false;
+
             Vector2 pixelUV = new Vector2(hit.textureCoord.x, hit.textureCoord.y);
             uvWorldPosition.x = pixelUV.x - canvasCam.orthographicSize;
             uvWorldPosition.y = pixelUV.y - canvasCam.orthographicSize;
