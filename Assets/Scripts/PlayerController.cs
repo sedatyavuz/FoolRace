@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float speed;
+    [SerializeField] private float PCspeed;
 
     private Rigidbody rb;
 
@@ -22,6 +23,9 @@ public class PlayerController : MonoBehaviour
     private Vector3 newDir;
     private Vector3 VeloMoveDirection;
 
+    private Vector3 pos;
+
+    [SerializeField] private Camera cam;
 
     void Start()
     {
@@ -81,7 +85,7 @@ public class PlayerController : MonoBehaviour
 
                 transform.rotation = Quaternion.LookRotation(newDir);
 
-                transform.Translate(moveDirection * Time.deltaTime * movementSpeed, Space.World);
+                //transform.Translate(moveDirection * Time.deltaTime * speed, Space.World);
             }
 
             VeloMoveDirection = moveDirection * Time.deltaTime * speed;
@@ -92,6 +96,37 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("run", false);
         }
 
+
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    startPos = Input.mousePosition;
+        //}
+
+        //if (Input.GetMouseButtonUp(0))
+        //{
+        //    animator.SetBool("run", false);
+        //}
+
+        //if (Input.GetMouseButton(0))
+        //{
+        //    animator.SetBool("run", true);
+
+        //    direction = (Vector2)Input.mousePosition - startPos;
+        //    direction = Vector3.Normalize(direction);
+
+        //    moveDirection.x = direction.x;
+        //    moveDirection.z = direction.y;
+        //    moveDirection.y = 0;
+
+        //    newDir = Vector3.RotateTowards(transform.forward, moveDirection, 0.3f, 0);
+
+        //    transform.rotation = Quaternion.LookRotation(newDir);
+
+        //    VeloMoveDirection = moveDirection * Time.deltaTime * PCspeed;
+
+        //    rb.velocity = new Vector3(VeloMoveDirection.x, rb.velocity.y, VeloMoveDirection.z);
+
+        //}
     }
 }
 

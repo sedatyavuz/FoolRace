@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6556589124680284254}
   - component: {fileID: 4755048462556223988}
   - component: {fileID: 7711626800802379094}
+  - component: {fileID: 7204252674107760776}
   m_Layer: 0
   m_Name: RotatingStick
   m_TagString: Untagged
@@ -107,3 +108,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e41683b69b80948439790c408a7af713, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!208 &7204252674107760776
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4755048462556223883}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.0050000004, y: 0.0125, z: 0.053000003}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0.075}
+  m_TimeToStationary: 0.5
