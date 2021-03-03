@@ -7,16 +7,25 @@ public class FollowTarget : MonoBehaviour
 {
     NavMeshAgent agent;
 
-    [SerializeField] private Transform Target;
+    private Transform Target;
+
+    [SerializeField] private Transform[] Targets;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+
+        int RandTransform = Random.Range(0, Targets.Length);
+        Target = Targets[RandTransform];
     }
 
-    // Update is called once per frame
     void Update()
     {
-        agent.SetDestination(Target.localPosition);
+        agent.SetDestination(Target.position);
+    }
+
+    public void setTarget(Transform newPos)
+    {
+        Target = newPos;
     }
 }
