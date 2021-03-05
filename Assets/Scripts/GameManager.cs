@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     public enum GameState { Menu = 0, Play = 1, Paint = 2, CamChange = 3 }
     public GameState gameState;
 
+    public int FinishPos = 0;
+
     private void Awake()
     {
         if (Instance == null) { Instance = this; }
