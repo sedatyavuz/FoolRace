@@ -32,7 +32,7 @@ public class CameraFollow : MonoBehaviour
         {
             ChangeCam();
 
-            if (Mathf.Abs(transform.position.z - target.position.z) <= 0.2f)
+            if (Mathf.Abs(transform.position.z - target.position.z) <= 0.01f)
                 GameManager.Instance.gameState = GameManager.GameState.Paint;
         }
     }

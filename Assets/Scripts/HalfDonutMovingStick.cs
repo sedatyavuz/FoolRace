@@ -14,12 +14,7 @@ public class HalfDonutMovingStick : MonoBehaviour
 
     void Start()
     {
-        InvokeRepeating(nameof(run), WaitTime, 0.01f);
-    }
-
-    private void Update()
-    {
-
+        InvokeRepeating(nameof(run), WaitTime, 0.02f);
     }
 
     void run()
@@ -28,7 +23,7 @@ public class HalfDonutMovingStick : MonoBehaviour
         if (transform.localPosition.x <= EndPos.x)
         {
             CancelInvoke(nameof(run));
-            InvokeRepeating(nameof(back), WaitTime, 0.01f);
+            InvokeRepeating(nameof(back), WaitTime, 0.02f);
         }
     }
 
@@ -38,7 +33,7 @@ public class HalfDonutMovingStick : MonoBehaviour
         if (transform.localPosition.x >= StartPos.x)
         {
             CancelInvoke(nameof(back));
-            InvokeRepeating(nameof(run), WaitTime, 0.01f);
+            InvokeRepeating(nameof(run), WaitTime, 0.02f);
         }
     }
 }

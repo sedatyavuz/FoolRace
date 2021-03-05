@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 VeloMoveDirection;
 
     private Vector3 pos;
+    private Vector3 startPosPC;
 
     [SerializeField] private Camera cam;
 
@@ -41,92 +42,95 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (Input.touchCount > 0)
-        {
-            Touch touch = Input.GetTouch(0);
-
-            animator.SetBool("run", true);
-
-            switch (touch.phase)
-            {
-                case TouchPhase.Began:
-                    startPos = touch.position;
-                    break;
-
-                case TouchPhase.Moved:
-                    isSwiping = true;
-                    direction = touch.position - startPos;
-                    direction = Vector3.Normalize(direction);
-                    break;
-
-                case TouchPhase.Ended:
-                    isSwiping = false;
-                    direction = Vector2.zero;
-                    break;
-            }
-
-            swipeDelta = Vector2.zero;
-
-            if (isSwiping)
-            {
-                if (Input.touches.Length > 0)
-                {
-                    swipeDelta = touch.position - startPos;
-                }
-            }
-
-            if (swipeDelta.magnitude > 5)
-            {
-                moveDirection.x = direction.x;
-                moveDirection.z = direction.y;
-                moveDirection.y = 0;
-
-                newDir = Vector3.RotateTowards(transform.forward, moveDirection, 0.3f, 0);
-
-                transform.rotation = Quaternion.LookRotation(newDir);
-
-                //transform.Translate(moveDirection * Time.deltaTime * speed, Space.World);
-            }
-
-            VeloMoveDirection = moveDirection * Time.deltaTime * speed;
-            rb.velocity = new Vector3(VeloMoveDirection.x, rb.velocity.y, VeloMoveDirection.z);
-        }
-        else
-        {
-            animator.SetBool("run", false);
-        }
-
-
-        //if (Input.GetMouseButtonDown(0))
+        //if (Input.touchCount > 0)
         //{
-        //    startPos = Input.mousePosition;
-        //}
+        //    Touch touch = Input.GetTouch(0);
 
-        //if (Input.GetMouseButtonUp(0))
+        //    animator.SetBool("run", true);
+
+        //    switch (touch.phase)
+        //    {
+        //        case TouchPhase.Began:
+        //            startPos = touch.position;
+        //            break;
+
+        //        case TouchPhase.Moved:
+        //            isSwiping = true;
+        //            direction = touch.position - startPos;
+        //            direction = Vector3.Normalize(direction);
+        //            break;
+
+        //        case TouchPhase.Ended:
+        //            isSwiping = false;
+        //            direction = Vector2.zero;
+        //            break;
+        //    }
+
+        //    swipeDelta = Vector2.zero;
+
+        //    if (isSwiping)
+        //    {
+        //        if (Input.touches.Length > 0)
+        //        {
+        //            swipeDelta = touch.position - startPos;
+        //        }
+        //    }
+
+        //    if (swipeDelta.magnitude > 5)
+        //    {
+        //        moveDirection.x = direction.x;
+        //        moveDirection.z = direction.y;
+        //        moveDirection.y = 0;
+
+        //        newDir = Vector3.RotateTowards(transform.forward, moveDirection, 0.3f, 0);
+
+        //        transform.rotation = Quaternion.LookRotation(newDir);
+
+        //        //transform.Translate(moveDirection * Time.deltaTime * speed, Space.World);
+        //    }
+
+        //    VeloMoveDirection = moveDirection * Time.deltaTime * speed;
+        //    rb.velocity = new Vector3(VeloMoveDirection.x, rb.velocity.y, VeloMoveDirection.z);
+        //}
+        //else
         //{
         //    animator.SetBool("run", false);
         //}
 
-        //if (Input.GetMouseButton(0))
-        //{
-        //    animator.SetBool("run", true);
 
-        //    direction = (Vector2)Input.mousePosition - startPos;
-        //    direction = Vector3.Normalize(direction);
+        if (Input.GetMouseButtonDown(0))
+        {
+            startPosPC = transform.position;
+        }
 
-        //    moveDirection.x = direction.x;
-        //    moveDirection.z = direction.y;
-        //    moveDirection.y = 0;
+        if (Input.GetMouseButtonUp(0))
+        {
+            animator.SetBool("run", false);
+        }
 
-        //    newDir = Vector3.RotateTowards(transform.forward, moveDirection, 0.3f, 0);
+        if (Input.GetMouseButton(0))
+        {
+            animator.SetBool("run", true);
 
-        //    transform.rotation = Quaternion.LookRotation(newDir);
+            Vector3 cursorPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0.0f);
 
-        //    VeloMoveDirection = moveDirection * Time.deltaTime * PCspeed;
+            direction = transform.position - cam.WorldToScreenPoint(cursorPos);
+            direction = Vector3.Normalize(direction);
+            Debug.Log(direction);
 
-        //    rb.velocity = new Vector3(VeloMoveDirection.x, rb.velocity.y, VeloMoveDirection.z);
+            moveDirection.x = direction.x;
+            moveDirection.z = direction.y;
+            moveDirection.y = 0;
 
-        //}
+            newDir = Vector3.RotateTowards(transform.forward, moveDirection, 0.3f, 0);
+
+            transform.rotation = Quaternion.LookRotation(newDir);
+
+            VeloMoveDirection = moveDirection * Time.deltaTime * PCspeed;
+
+            rb.velocity = new Vector3(VeloMoveDirection.x, rb.velocity.y, VeloMoveDirection.z);
+
+        }
     }
 }
 

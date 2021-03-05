@@ -6,17 +6,18 @@ public class RotatePlatform : MonoBehaviour
 {
     [SerializeField] private float rotSpeed;
     private Rigidbody rb;
+
     void Update()
     {
         transform.Rotate(0, 0, Time.deltaTime * rotSpeed, Space.Self);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
             rb = collision.gameObject.GetComponent<Rigidbody>();
-            InvokeRepeating(nameof(LeftAddForce), 0, 0.01f);
+            InvokeRepeating(nameof(LeftAddForce), 0, 0.02f);
         }
     }
 

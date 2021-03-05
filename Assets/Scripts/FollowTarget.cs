@@ -11,12 +11,13 @@ public class FollowTarget : MonoBehaviour
 
     [SerializeField] private Transform[] Targets;
 
+    [SerializeField] private UIManager uIManager;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-
-        int RandTransform = Random.Range(0, Targets.Length);
-        Target = Targets[RandTransform];
+        Target = transform;
+        uIManager.StartValueChange += StartPos;
     }
 
     void Update()
@@ -27,5 +28,14 @@ public class FollowTarget : MonoBehaviour
     public void setTarget(Transform newPos)
     {
         Target = newPos;
+    }
+
+    public void StartPos(bool value)
+    {
+        if (value)
+        {
+            int RandTransform = Random.Range(0, Targets.Length);
+            Target = Targets[RandTransform];
+        }
     }
 }

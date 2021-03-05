@@ -9,12 +9,17 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button StartButton, RetryButton;
     [SerializeField] private PaintPoint paintPoint;
 
+    private bool StartValue = false;
+    public bool StartValueGetSet { get { return StartValue; } set { StartValue = value; StartValueChange?.Invoke(StartValue); } }
+    public delegate void OnPaintChangeVariable(bool newBool);
+    public event OnPaintChangeVariable StartValueChange;
+
     private void Start()
     {
         paintPoint.PaintChange += ButtonActive;
     }
 
-    public void StartGame() => GameManager.Instance.gameState = GameManager.GameState.Play;
+    public void StartGame() { StartValueGetSet = true; GameManager.Instance.gameState = GameManager.GameState.Play; }
 
     public void ResGame() => SceneManager.LoadScene(0);
 

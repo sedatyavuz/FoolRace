@@ -1,21 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class AnimationController : MonoBehaviour
 {
-    private Rigidbody rb;
     private Animator animator;
+    private NavMeshAgent navMeshAgent;
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (rb.velocity.magnitude > 0)
+        if (navMeshAgent.desiredVelocity.magnitude > 0)
             animator.SetBool("run", true);
         else
             animator.SetBool("run", false);
